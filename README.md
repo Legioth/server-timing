@@ -2,6 +2,8 @@
 
 Vaadin add-on that helps report server-side processing times to the developer tooling in the browser.
 
+For usage examples, see [the demo view](https://github.com/Legioth/server-timing/blob/master/src/test/java/org/github/legioth/servertiming/DemoView.java).
+
 ## Development instructions
 
 Starting the test/demo server:
