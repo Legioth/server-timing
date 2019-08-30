@@ -29,10 +29,10 @@ import com.vaadin.flow.server.VaadinServletResponse;
  * {@link #wrapListener(String, ComponentEventListener)},
  * {@link #wrapDataProvider(String, DataProvider)},
  * {@link #run(String, Command)} or {@link #supply(String, Supplier)}. Using the
- * {@link #ServerTiming(String, Double)} constructor to manually create an entry
- * and submitting it using {@link #submit(VaadinResponse)} or
- * {@link #forceSubmit(VaadinResponse)} is mainly intended for advanced use
- * cases.
+ * {@link #ServerTiming(String)} constructor to manually create an entry and
+ * submitting it using {@link #submit(VaadinServletResponse)} or
+ * {@link #forceSubmit(VaadinServletResponse)} is mainly intended for advanced
+ * use cases.
  * <p>
  * By default, timing information is ignored when the application is in
  * production mode. This is to reduce response sizes and to prevent leaking
@@ -145,7 +145,7 @@ public class ServerTiming {
      *            the name of the parameter to set, not <code>null</code>
      * @param value
      *            the value to set, not <code>null</code>
-     * @return
+     * @return this entry, for chaining
      */
     public ServerTiming setParameter(String name, String value) {
         if (parameters == null) {
@@ -174,7 +174,9 @@ public class ServerTiming {
      * sent if server timing is disabled.
      * 
      * @param name
+     *            the name of the entry to send, not <code>null</code>
      * @param duration
+     *            the duration of the entry in milliseconds
      */
     public static void set(String name, double duration) {
         if (enabledCheck.isEnabled()) {
@@ -250,6 +252,8 @@ public class ServerTiming {
      *            <code>null</code>
      * @param supplier
      *            the supplier to run, not <code>null</code>
+     * @param <T>
+     *            the supplier type
      * @return the value provided by the supplier
      */
     public static <T> T supply(String name, Supplier<T> supplier) {
@@ -276,6 +280,8 @@ public class ServerTiming {
      *            <code>null</code>
      * @param listener
      *            the component event listener to wrap
+     * @param <T>
+     *            the event type of the listener
      * @return a wrapping component event listener, or the original listener if
      *         server timing is disabled
      */
@@ -303,6 +309,10 @@ public class ServerTiming {
      *            <code>null</code>
      * @param provider
      *            the data provider to wrap, not <code>null</code>
+     * @param <T>
+     *            the data provider item type
+     * @param <F>
+     *            the data provider filter type
      * @return a wrapping data provider , or the original data provider if
      *         server timing is disabled
      */
